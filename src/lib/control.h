@@ -13,6 +13,8 @@
  * 2 for important but non-fatal error;
  * 3 for fatal error;
  */
+//TODO: this has to be renamed, or it is in serious name clashing
+// with gnu libc error()
 void error(char *message, int fatality_level) {
 	char error_message[100];
 	

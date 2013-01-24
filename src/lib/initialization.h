@@ -13,6 +13,7 @@ int folder_check(void) {
 	int folder_created; /* A variable to store whether the file was created or not. */
 	int removed_file; /* A variable to store whether the pointer file was successfuly erased. */
 	
+	//TODO: This is a hack. Check to see if there are any better ways to get this implemented.
 	success = system("if [ -d /var/www ] ; then touch folder_exists ; fi"); 
 	
 	if (success == 0) { /* Touch returns 0 on success. */
@@ -47,6 +48,10 @@ int folder_check(void) {
 
 			
 /* A basic function printing some (warning) messages */
+//XXX: This should do more, or get deleted. As is right now
+// it's only polluting the code base.
+//TODO: This could as well provide some basic information about the computer it
+// is running on, such as the port and the ip, host os, etc.
 void initialization(void) {
 	
 	printf("\n\n");
