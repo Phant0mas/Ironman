@@ -20,5 +20,15 @@ int send_string(int sockfd, unsigned char *buffer);
  * the destination buffer is terminated before these bytes.
  * Returns the size of the read line (without EOL bytes).
  */
+ 
 int recv_line(int sockfd, unsigned char *dest_buffer);
+
+/* This function handles the connection on the passed socket from the
+ * passed client address. The connection is processed as a web request,
+ * and this function replies over the connected socket. Finally, the
+ * passed socket is closed at the end of the function.
+ */
+ 
+void handle_connection(int, struct sockaddr_in *); /* Handle web requests */
+
 #endif
