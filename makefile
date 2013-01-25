@@ -8,13 +8,16 @@ Ironman: src/Ironman.o src/lib/initialization.o src/lib/networking.o src/lib/con
 		src/lib/networking.o src/lib/control.o -o Ironman
 
 /src/Ironman.o: 
-		gcc src/Ironman.c -o src/Ironman.o
+		gcc src/Ironman.c /src/lib/networking.o /src/lib/initialization.o \
+		-o src/Ironman.o
 
 /src/lib/initialization.o:
-		gcc -c src/lib/initialization.c -o src/lib/initialization.o
+		gcc -c src/lib/initialization.c src/lib/control.o \
+		-o src/lib/initialization.o
 
 /src/lib/networking.o:
-		gcc -c src/lib/networking.c -o src/lib/networking.o
+		gcc -c src/lib/networking.c src/lib/control.o \
+		-o src/lib/networking.o
 
 /src/lib/control.o: 
 		gcc -c src/lib/control.c -o src/lib/control.o

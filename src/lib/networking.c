@@ -1,3 +1,6 @@
+#include <string.h>
+
+#include "control.h"
 #include "networking.h"
 
 /* This function accepts a socket file descriptor and a pointer
@@ -42,6 +45,7 @@ int recv_line(int sockfd, unsigned char *dest_buffer) {
 		} else {
 			eol_matched = 0;
 		}
+
 		ptr++; /* Increment the pointer to the next byte. */
 	}
 	

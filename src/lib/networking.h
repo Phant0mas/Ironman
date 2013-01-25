@@ -5,8 +5,6 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#include "control.h"
-
 #define PORT 80 /* The port users will be connecting to. */
 
 /* This function accepts a socket file descriptor and a pointer

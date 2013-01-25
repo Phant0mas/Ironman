@@ -1,13 +1,6 @@
 #ifndef CONTROL_H_INCLUDED
 #define CONTROL_H_INCLUDED
 
-#include <stdio.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <fcntl.h>
-
 #define WEBROOT "/var/www" /* The server's root directory. */
 
 /* A function to display an error message and then exit 

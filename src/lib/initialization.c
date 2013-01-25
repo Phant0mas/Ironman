@@ -1,3 +1,9 @@
+#include <stdio.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
+
+#include "control.h"
 #include "initialization.h"
 
 /* A function that searches to see if /var/www exists, and if not
