@@ -25,7 +25,8 @@ Ironman: src/Ironman.o src/lib/initialization.o src/lib/networking.o src/lib/con
 # --- remove binary and executable files
 
 #this way it compiles,at least until we fix the first one
-HardIronman: gcc src/Ironman.c src/lib/control.c src/lib/control.h src/lib/networking.c src/lib/networking.h src/lib/initialization.c src/lib/initialization.h -o Ironman
+HardIronman: 
+		gcc src/Ironman.c src/lib/control.c src/lib/control.h src/lib/networking.c src/lib/networking.h src/lib/initialization.c src/lib/initialization.h -o Ironman
 
 
 clean:
