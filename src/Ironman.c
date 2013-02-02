@@ -21,7 +21,6 @@ int main(void) {
 	
 	initialization(); /* Performing steps necessary for initialization */
 	
-	folder_check(); /* Checking if /var/www folder exists */
 
 	printf("Accepting web requests on port %d\n", PORT);
 	
