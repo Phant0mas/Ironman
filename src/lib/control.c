@@ -16,7 +16,7 @@
  */
 //TODO: this has to be renamed, or it is in serious name clashing
 // with gnu libc error()
-void error(char *message, int fatality_level) {
+void foterror(char *message, int fatality_level) {
 	char error_message[100];
 	
 	if (fatality_level == 0) {

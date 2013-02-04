@@ -10,7 +10,7 @@
  * 2 for important but non-fatal error;
  * 3 for fatal error;
  */
-void error(char *message, int fatality_level);
+void foterror(char *message, int fatality_level);
 
 /* An error checked malloc() wrapper function */
 void *ec_malloc(unsigned int size);
