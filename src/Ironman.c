@@ -12,10 +12,11 @@
 #include "lib/networking.h"
 #include "lib/initialization.h"
 
-
+#define TRUE   1
+#define FALSE  0
 
 int main(void) {
-	int sockfd, new_sockfd, yes = 1;
+	int sockfd, new_sockfd, opt = TRUE;
 	struct sockaddr_in host_addr, client_addr; /* My address information */
 	socklen_t sin_size;
 	
@@ -24,10 +25,10 @@ int main(void) {
 
 	printf("Accepting web requests on port %d\n", PORT);
 	
-	if ((sockfd = socket(PF_INET, SOCK_STREAM, 0)) == -1)
+	if ((sockfd = socket(PF_INET, SOCK_STREAM, 0)) == -1)/*creating a socket,if error it returns -1*/
 		foterror("in socket", 3);
 	
-	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) == -1)
+	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char *)&opt, sizeof(int)) == -1)/*lose the pesky "Address already in use" error message*/
 		foterror("setting socket option SO_REUSEADDR", 2);
 
 	host_addr.sin_family = AF_INET; /* Host byte order */
