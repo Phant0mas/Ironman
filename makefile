@@ -3,32 +3,20 @@
 # for building
 
 # --- targets
-Ironman: src/Ironman.o src/lib/initialization.o src/lib/networking.o src/lib/control.o
-		ld src/Ironman.o src/lib/initialization.o \
-		src/lib/networking.o src/lib/control.o -o Ironman
+Ironman: src/Ironman.c src/lib/networking.o src/lib/initialization.o 
+		gcc src/Ironman.c src/lib/networking.o src/lib/initialization.o \
+		src/lib/control.o -o src/Ironman
 
-/src/Ironman.o: 
-		gcc src/Ironman.c /src/lib/networking.o /src/lib/initialization.o \
-		-o src/Ironman.o
+src/lib/initialization.o: src/lib/initialization.c src/lib/control.o
+		gcc -c src/lib/initialization.c src/lib/control.o -o src/lib/initialization.o
 
-/src/lib/initialization.o:
-		gcc -c src/lib/initialization.c src/lib/control.o \
-		-o src/lib/initialization.o
+src/lib/networking.o: src/lib/networking.c src/lib/control.o
+		gcc -c src/lib/networking.c src/lib/control.o -o src/lib/networking.o
 
-/src/lib/networking.o:
-		gcc -c src/lib/networking.c src/lib/control.o \
-		-o src/lib/networking.o
-
-/src/lib/control.o: 
+src/lib/control.o: src/lib/control.c
 		gcc -c src/lib/control.c -o src/lib/control.o
 
-# --- remove binary and executable files
-
-#this way it compiles,at least until we fix the first one
-HardIronman: 
-		gcc src/Ironman.c src/lib/control.c src/lib/control.h src/lib/networking.c src/lib/networking.h src/lib/initialization.c src/lib/initialization.h -o Ironman
-
-
+# -- remove object, binary and the rest of the build data.
 clean:
 		rm -f Ironman
 		rm -rf ./src/*.o

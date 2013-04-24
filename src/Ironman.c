@@ -22,14 +22,14 @@ int main(void) {
 	
 	initialization(); /* Performing steps necessary for initialization */
 	
-
 	printf("Accepting web requests on port %d\n", PORT);
 	
 	if ((sockfd = socket(PF_INET, SOCK_STREAM, 0)) == -1)/*creating a socket,if error it returns -1*/
-		foterror("in socket", 3);
+		logerror("in socket", 3);
 	
-	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char *)&opt, sizeof(int)) == -1)/*lose the pesky "Address already in use" error message*/
-		foterror("setting socket option SO_REUSEADDR", 2);
+	/* avoid the pesky "Address already in use" error message. */
+	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char *)&opt, sizeof(int)) == -1)
+		logerror("setting socket option SO_REUSEADDR", 2);
 
 	host_addr.sin_family = AF_INET; /* Host byte order */
 	host_addr.sin_port = htons(PORT); /* Short, network byte order */
@@ -37,16 +37,16 @@ int main(void) {
 	memset(&(host_addr.sin_zero), '\0', 8); /* Zero the rest of the struct. */
 	
 	if (bind(sockfd, (struct sockaddr *)&host_addr, sizeof(struct sockaddr)) == -1)
-		foterror("binding to socket", 3);
+		logerror("binding to socket", 3);
 
 	if (listen(sockfd, 20) == -1)
-		foterror("listening on socket", 2);
+		logerror("listening on socket", 2);
 		
 	while (1) { /* Accept loop. */
 		sin_size = sizeof(struct sockaddr_in);
 		new_sockfd = accept(sockfd, (struct sockaddr *) &client_addr, &sin_size);
 		if (new_sockfd == -1)
-			foterror("accepting connection", 2);
+			logerror("accepting connection", 2);
 		
 		handle_connection(new_sockfd, &client_addr);
 	}
@@ -54,6 +54,3 @@ int main(void) {
 	return 0;
 	
 }
-
-
-

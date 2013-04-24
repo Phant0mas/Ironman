@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/socket.h> 
+
 #include "control.h"
 #include "networking.h"
 
@@ -110,10 +111,10 @@ void handle_connection(int sockfd, struct sockaddr_in *client_addr_ptr) {
 				
 				if(ptr == request + 4) { // Then this is a GET request
 					if( (length = get_file_size(fd)) == -1)
-						foterror("getting resource file size", 1);
+						logerror("getting resource file size", 1);
 					
 					if( (ptr = (unsigned char *) malloc(length)) == NULL)
-						foterror("allocating memory for reading resource", 2);
+						logerror("allocating memory for reading resource", 2);
 
 					read(fd, ptr, length); // Read the file into memory.
 					send(sockfd, ptr, length, 0); // Send it to socket.
