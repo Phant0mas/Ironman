@@ -31,5 +31,6 @@ HardIronman:
 
 clean:
 		rm -f Ironman
-		rm -f report
+		rm -rf ./src/*.o
+		rm -rf ./src/lib/*.o
 

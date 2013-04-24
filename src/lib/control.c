@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
@@ -14,7 +15,7 @@
  * 2 for important but non-fatal error;
  * 3 for fatal error;
  */
-void foterror(char *message, int fatality_level) {
+void logerror(char *message, int fatality_level) {
 	char error_message[100];
 	
 	if (fatality_level == 0) {

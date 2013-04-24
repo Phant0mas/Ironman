@@ -10,7 +10,7 @@
  * 2 for important but non-fatal error;
  * 3 for fatal error;
  */
-void foterror(char *message, int fatality_level);
+void logerror(char *message, int fatality_level);
 
 /* An error checked malloc() wrapper function */
 void *ec_malloc(unsigned int size);
@@ -22,4 +22,5 @@ void dump(const unsigned char *data_buffer, const unsigned int length);
  * the size of the associated file. Returns -1 on failure.
  */
 int get_file_size(int file_descriptor);
+
 #endif
