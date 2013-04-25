@@ -1,3 +1,14 @@
+/* The Ironman Web Server Project.
+ * 
+ * This file is part of the Ironman Web Server Project,
+ * a project that aims to build a modular and scalar web server.
+ *
+ * Copyright The Ironman Web Server Contributors
+ * (c) 2013.
+ * This file is distributed under the terms of the GNU/GPL v3 license.
+ * See the file COPYING in the root folder of the project for more information.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
