@@ -23,6 +23,11 @@
 #include "lib/networking.h"
 #include "lib/initialization.h"
 
+/* If you find yourself in times of need, feel free to summon higher powers.
+ * #include <jonskeet> 
+ * should suffice.
+ */
+
 #define TRUE   1
 #define FALSE  0
 

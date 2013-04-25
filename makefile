@@ -2,6 +2,8 @@
 # We will use the gcc compiler infrastructure
 # for building
 
+# TO THE COMPILER: I know where you are installed. No funny games, capice?
+
 # The default compiler for now will be gcc.
 CC=gcc
 
