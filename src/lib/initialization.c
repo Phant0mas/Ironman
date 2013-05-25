@@ -1,4 +1,5 @@
-/* The Ironman Web Server Project.
+/*
+ * The Ironman Web Server Project.
  * 
  * This file is part of the Ironman Web Server Project,
  * a project that aims to build a modular and scalar web server.
@@ -17,35 +18,35 @@
 #include "control.h"
 #include "initialization.h"
 
-/* A function that searches to see if /var/www exists, and if not
+/* 
+ * A function that searches to see if /var/www exists, and if not
  * it creates it.
  * Returns 0 upon creation of file, and 1 if the file was already existent.
  */
 int folder_check(void) {
 	int success; /* A variable to store the relative success of the operation. */	
-	
+    
+    /*
+     * If the directory www does not exist, it will get created and mkdir will return 0.
+     * In any other case, mkdir() will return -1.
+     */
 	success = mkdir("/var/www", S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
-	/*If the directory www do not exists, it will get created and mkdir returns 0.
-	*If the directory exists, mkdir() returns -1*/
 	
-	if(success ==0){
+	if(success == 0){
 		printf("Folder www was created!!\n");
 		return 0;
-	}
-	if(success ==-1){
+	} else if (success == -1) {
 		printf("Folder www already exists\n");
 		return 1;
-	}
-	if(success < -1 && success >0)
-		error("in folder_check while attempting to create file", 3);/*error fuction can be found in control.c*/
-		
-
-	
+	} else {
+		error("in folder_check while attempting to create file", 3);	
+    }
 }
-
 			
-/*All the fuctions that are critical in initializing the server will be called through this one
- * so we won't have to call each one separately*/
+/*
+ * All the fuctions that are critical in initializing the server will be called through this one
+ * so we won't have to call each one separately
+ */
 void initialization(void) {
 	
 	printf("\n\n");
