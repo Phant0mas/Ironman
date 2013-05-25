@@ -1,4 +1,5 @@
-/* The Ironman Web Server Project.
+/*
+ * The Ironman Web Server Project.
  * 
  * This file is part of the Ironman Web Server Project,
  * a project that aims to build a modular and scalar web server.
@@ -19,11 +20,13 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <syslog.h>
 
 #include "lib/networking.h"
 #include "lib/initialization.h"
 
-/* If you find yourself in times of need, feel free to summon higher powers.
+/* 
+ * If you find yourself in times of need, feel free to summon higher powers.
  * #include <jonskeet> 
  * should suffice.
  */
@@ -36,7 +39,38 @@ int main(void) {
 	struct sockaddr_in host_addr, client_addr; /* My address information */
 	socklen_t sin_size;
 	
-	initialization(); /* Performing steps necessary for initialization */
+    pid_t process_id = 0;
+    pid_t sid = 0;
+
+    /* Create child process */
+    process_id = fork();
+
+    /* Checking for fork() failure */
+    if (process_id < 0)
+        logerror("Fork() Failed!", 3);
+
+    /* Killing parent process */
+    if (process_id > 0)
+        exit(0); /* Graceful death of the parent process */
+
+    /* Unmask the file mode */
+    umask(0);
+    
+    /* Set new session */
+    sid = setsid();
+
+    if (sid < 0)
+        logerror("setsid() Failed!", 3);
+
+    initialization(); 
+
+    /* Change current working directory to /var/www */
+    chdir("/var/www");
+
+    /* Closing open streams files */
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
+    close(STDERR_FILENO);
 	
 	printf("Accepting web requests on port %d\n", PORT);
 	
