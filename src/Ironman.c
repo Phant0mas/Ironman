@@ -48,6 +48,8 @@ int main(void) {
     /* Checking for fork() failure */
     if (process_id < 0)
         logerror("Fork() Failed!", 3);
+    
+	printf("The process id is %d\n\n %d\n\n",process_id,sid);
 
     /* Killing parent process */
     if (process_id > 0)
@@ -61,7 +63,7 @@ int main(void) {
 
     if (sid < 0)
         logerror("setsid() Failed!", 3);
-
+	
     initialization(); 
 
     /* Change current working directory to /var/www */
