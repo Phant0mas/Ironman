@@ -24,6 +24,9 @@ src/lib/networking.o: src/lib/networking.c src/lib/control.o
 
 src/lib/control.o: src/lib/control.c
 		$(CC) $(CFLAGS) src/lib/control.c -o src/lib/control.o
+		
+src/lib/logger.o: src/lib/logger.c
+		$(CC) $(CFLAGS) src/lib/logger.c -o src/lib/logger.o 
 
 # -- remove object, binary and the rest of the build data.
 clean:
