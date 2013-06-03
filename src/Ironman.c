@@ -34,13 +34,18 @@
 #define TRUE   1
 #define FALSE  0
 
-int main(void) {
-	int sockfd, new_sockfd, opt = TRUE;
-	struct sockaddr_in host_addr, client_addr; /* My address information */
-	socklen_t sin_size;
+int main(void) 
+{
+	int         sockfd, 
+                new_sockfd, 
+                opt = TRUE;
+
+	struct      sockaddr_in host_addr, 
+                client_addr; /* My address information */
+	socklen_t   sin_size;
 	
-    pid_t process_id = 0;
-    pid_t sid = 0;
+    pid_t       process_id = 0,
+                sid = 0;
 
     /* Create child process */
     process_id = fork();
@@ -72,9 +77,7 @@ int main(void) {
     close(STDOUT_FILENO);
     close(STDERR_FILENO);
 	
-	printf("Accepting web requests on port %d\n", PORT);
-	
-	if ((sockfd = socket(PF_INET, SOCK_STREAM, 0)) == -1)/*creating a socket,if error it returns -1*/
+	if ((sockfd = socket(PF_INET, SOCK_STREAM, 0)) == -1)
 		logerror("in socket", 3);
 	
 	/* avoid the pesky "Address already in use" error message. */
