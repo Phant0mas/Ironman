@@ -36,14 +36,14 @@
 
 int main(void) 
 {
-	int         sockfd, 
+    int         sockfd, 
                 new_sockfd, 
                 opt = TRUE;
 
-	struct      sockaddr_in host_addr, 
+    struct      sockaddr_in host_addr, 
                 client_addr; /* My address information */
-	socklen_t   sin_size;
-	
+    socklen_t   sin_size;
+    
     pid_t       process_id = 0,
                 sid = 0;
 
@@ -76,34 +76,34 @@ int main(void)
     close(STDIN_FILENO);
     close(STDOUT_FILENO);
     close(STDERR_FILENO);
-	
-	if ((sockfd = socket(PF_INET, SOCK_STREAM, 0)) == -1)
-		logerror("in socket", 3);
-	
-	/* avoid the pesky "Address already in use" error message. */
-	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char *)&opt, sizeof(int)) == -1)
-		logerror("setting socket option SO_REUSEADDR", 2);
+    
+    if ((sockfd = socket(PF_INET, SOCK_STREAM, 0)) == -1)
+        logerror("in socket", 3);
+    
+    /* avoid the pesky "Address already in use" error message. */
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char *)&opt, sizeof(int)) == -1)
+        logerror("setting socket option SO_REUSEADDR", 2);
 
-	host_addr.sin_family = AF_INET; /* Host byte order */
-	host_addr.sin_port = htons(PORT); /* Short, network byte order */
-	host_addr.sin_addr.s_addr = INADDR_ANY; /* Automatically fill with my IP. */
-	memset(&(host_addr.sin_zero), '\0', 8); /* Zero the rest of the struct. */
-	
-	if (bind(sockfd, (struct sockaddr *)&host_addr, sizeof(struct sockaddr)) == -1)
-		logerror("binding to socket", 3);
+    host_addr.sin_family = AF_INET; /* Host byte order */
+    host_addr.sin_port = htons(PORT); /* Short, network byte order */
+    host_addr.sin_addr.s_addr = INADDR_ANY; /* Automatically fill with my IP. */
+    memset(&(host_addr.sin_zero), '\0', 8); /* Zero the rest of the struct. */
+    
+    if (bind(sockfd, (struct sockaddr *)&host_addr, sizeof(struct sockaddr)) == -1)
+        logerror("binding to socket", 3);
 
-	if (listen(sockfd, 20) == -1)
-		logerror("listening on socket", 2);
-		
-	while (1) { /* Accept loop. */
-		sin_size = sizeof(struct sockaddr_in);
-		new_sockfd = accept(sockfd, (struct sockaddr *) &client_addr, &sin_size);
-		if (new_sockfd == -1)
-			logerror("accepting connection", 2);
-		
-		handle_connection(new_sockfd, &client_addr);
-	}
-	
-	return 0;
-	
+    if (listen(sockfd, 20) == -1)
+        logerror("listening on socket", 2);
+        
+    while (1) { /* Accept loop. */
+        sin_size = sizeof(struct sockaddr_in);
+        new_sockfd = accept(sockfd, (struct sockaddr *) &client_addr, &sin_size);
+        if (new_sockfd == -1)
+            logerror("accepting connection", 2);
+        
+        handle_connection(new_sockfd, &client_addr);
+    }
+    
+    return 0;
+    
 }
