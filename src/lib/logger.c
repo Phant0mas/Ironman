@@ -1,15 +1,25 @@
+/* The Ironman Web Server Project.
+ * 
+ * This file is part of the Ironman Web Server Project,
+ * a project that aims to build a modular and scalar web server.
+ *
+ * Copyright The Ironman Web Server Contributors
+ * (c) 2013.
+ * This file is distributed under the terms of the GNU/GPL v3 license.
+ * See the file COPYING in the root folder of the project for more information.
+ */
+
 /**
  * 		If it works,when it is implemented right,
  * 	    Manolis did it,if not no idea !!
- * 		
- * 
- * 
- * */
+ * 		 
+ */
+
 #include <stdio.h>
 #include <stdarg.h>
 #include <time.h>
  
-FILE *fp ;
+FILE *fp;
 static int SESSION_TRACKER; //Keeps track of session
  
 char* print_time()
@@ -18,15 +28,16 @@ char* print_time()
     char *buf;
      
     time(&t);
-    buf = (char*)malloc(strlen(ctime(&t))+ 1);
+    buf = (char*)malloc(strlen(ctime(&t)) + 1);
      
-    snprintf(buf,strlen(ctime(&t)),"%s ", ctime(&t));
+    snprintf(buf, strlen(ctime(&t)),"%s ", ctime(&t));
     
     return buf;
 }
-void log_print(char* filename, int line, char *fmt,...)
+
+void log_print(char* filename, int line, char *fmt, ...)
 {
-	//only for testing purposes for now,don't shoot me in the head!! :P 
+	//only for testing purposes for now, don't shoot me in the head!! :P 
     va_list         list;
     char            *p, *r;
     int             e;
@@ -36,45 +47,46 @@ void log_print(char* filename, int line, char *fmt,...)
     else
       fp = fopen ("logs/log.txt","w");
      
-    fprintf(fp,"%s ",print_time());
-    va_start( list, fmt );
+    fprintf(fp,"%s ", print_time());
+    va_start(list, fmt);
  
-    for ( p = fmt ; *p ; ++p )
+    for (p = fmt ; *p ; ++p)
     {
-        if ( *p != '%' )//If simple string
+        if (*p != '%')//If simple string
         {
-            fputc( *p,fp );
+            fputc(*p,fp);
         }
         else
         {
-            switch ( *++p )
+            switch (*++p)
             {
                 /* string */
-            case 's':
-            {
-                r = va_arg( list, char * );
+                case 's':
+                {
+                    r = va_arg(list, char *);
  
-                fprintf(fp,"%s", r);
-                continue;
-            }
+                    fprintf(fp,"%s", r);
+                    continue;
+                }
  
-            /* integer */
-            case 'd':
-            {
-                e = va_arg( list, int );
+                /* integer */
+                case 'd':
+                {
+                    e = va_arg(list, int);
  
-                fprintf(fp,"%d", e);
-                continue;
-            }
+                    fprintf(fp,"%d", e);
+                    continue;
+                }
  
-            default:
-                fputc( *p, fp );
+                default:
+                    fputc(*p, fp);
             }
         }
     }
-    va_end( list );
-    fprintf(fp," [%s][line: %d] ",filename,line);
-    fputc( '\n', fp );
+
+    va_end(list);
+    fprintf(fp, " [%s][line: %d] ", filename, line);
+    fputc('\n', fp);
     SESSION_TRACKER++;
     fclose(fp);
 }
