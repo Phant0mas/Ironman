@@ -11,6 +11,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/socket.h> 
@@ -42,6 +43,49 @@ int folder_check(void) {
 		error("in folder_check while attempting to create file", 3);	
     }
 }
+
+static void daemonize(void){
+	pid_t pid, sid;
+	
+	/*already a daemon */
+    if ( getppid() == 1 ) 
+		return;
+		
+    /* Fork off the parent process */
+    pid = fork();
+    
+    if (pid < 0) {
+        logerror("Fork not successful", 3);
+    }
+    /* If we got a good PID, then we can exit the parent process. */
+    if (pid > 0) {
+		logerror("Fork successful",0);
+        exit(0);
+    }
+    
+	/* At this point we are executing as the child process */
+	
+	/* Change the file mode mask */
+    umask(0);
+
+    /* Create a new SID for the child process */
+    sid = setsid();
+    if (sid < 0) {
+        logerror("set new SID to child not successful", 3);
+    }
+    
+    /* Change the current working directory.  This prevents the current
+       directory from being locked; hence not being able to remove it. */
+    if ((chdir("/")) < 0) {
+		logerror("Not able to change working directory", 3);
+    }
+    
+    /* Redirect standard files to /dev/null */
+    //freopen( "/dev/null", "r", stdin);
+    //freopen( "/dev/null", "w", stdout);
+    //freopen( "/dev/null", "w", stderr);
+    //printf("The process id is: %d\n",sid);     	
+}
 			
 /*
  * All the fuctions that are critical in initializing the server will be called through this one
@@ -52,4 +96,5 @@ void initialization(void) {
 	printf("\n\n");
 	printf("Preparing to initialize the Ironman HTTP Server. \n");	
 	folder_check(); /* Checking if /var/www folder exists */
+	daemonize();
 }

@@ -36,6 +36,7 @@
 
 int main(void) 
 {
+    
     int         sockfd, 
                 new_sockfd, 
                 opt = TRUE;
@@ -44,29 +45,7 @@ int main(void)
                 client_addr; /* My address information */
     socklen_t   sin_size;
     
-    pid_t       process_id = 0,
-                sid = 0;
-
-    /* Create child process */
-    process_id = fork();
-
-    /* Checking for fork() failure */
-    if (process_id < 0)
-        logerror("Fork() Failed!", 3);
-
-    /* Killing parent process */
-    if (process_id > 0)
-        exit(0); /* Graceful death of the parent process */
-
-    /* Unmask the file mode */
-    umask(0);
     
-    /* Set new session */
-    sid = setsid();
-
-    if (sid < 0)
-        logerror("setsid() Failed!", 3);
-
     initialization(); 
 
     /* Change current working directory to /var/www */

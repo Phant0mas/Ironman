@@ -18,6 +18,13 @@
  */
 int folder_check(void);
 
+/*
+ * A fuction that makes Ironman run like a daemon 
+ * and let it do the work for which he is paid in
+ * the background
+ * */
+static void daemonize(void);
+
 			
 /* A basic function printing some (warning) messages */
 void initialization(void);
