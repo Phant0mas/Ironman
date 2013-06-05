@@ -14,7 +14,9 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <sys/socket.h> 
+#include <sys/socket.h>
+#include <unistd.h>
+
 
 #include "control.h"
 #include "initialization.h"
@@ -40,8 +42,9 @@ int folder_check(void) {
 		printf("Folder www already exists\n");
 		return 1;
 	} else {
-		error("in folder_check while attempting to create file", 3);	
+		logerror("in folder_check while attempting to create file", 3);	
     }
+    return -1;
 }
 
 static void daemonize(void){
@@ -81,9 +84,9 @@ static void daemonize(void){
     }
     
     /* Redirect standard files to /dev/null */
-    //freopen( "/dev/null", "r", stdin);
-    //freopen( "/dev/null", "w", stdout);
-    //freopen( "/dev/null", "w", stderr);
+    freopen( "/dev/null", "r", stdin);
+    freopen( "/dev/null", "w", stdout);
+    freopen( "/dev/null", "w", stderr);
     //printf("The process id is: %d\n",sid);     	
 }
 			

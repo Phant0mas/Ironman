@@ -9,10 +9,11 @@ CC=gcc
 
 # The compiler flags we are using
 # -c: compiles the source file, and only produces an object file (No linking done)
-CFLAGS=-c 
+# -Wall: raise all warnings.
+CFLAGS=-c -Wall
 
 # --- targets
-Ironman: src/Ironman.c src/lib/networking.o src/lib/initialization.o 
+Ironman: src/Ironman.c src/lib/networking.o src/lib/initialization.o src/lib/control.o
 		gcc src/Ironman.c src/lib/networking.o src/lib/initialization.o \
 		src/lib/control.o -o src/Ironman
 
